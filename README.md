@@ -1,0 +1,34 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# qmdtemplate
+
+## Installation
+
+You can install the development version of oeestyles from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("elizabethjump/qmdtemplate")
+```
+
+You should also make sure you have an up to date version of Quarto (the
+program, not the package) installed. you can download it
+[here](https://quarto.org/docs/blog/posts/2024-11-25-1.6-release/).
+
+------------------------------------------------------------------------
+
+## Overview
+
+This R package has one function: `***`. This function will create a new
+Quarto document that has been pre-formatted using Typst.
+
+You can copy the R code and folder structure from this package if you’d
+like to create your own package that installs custom styled Quarto
+documents for your organization. The example included here is for a
+Quarto doc formatted with Typst but you can adjust that as desired. If
+you’ve never built an R package before, I suggest you follow the
+instructions in the [R Packages (2e)](https://r-pkgs.org/) book.
+
+## Resources
