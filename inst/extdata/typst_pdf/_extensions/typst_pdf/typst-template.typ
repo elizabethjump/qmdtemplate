@@ -1,5 +1,5 @@
 
-// This is the OEE typst template
+// This is an example typst template
 
 #let pdf(
   title: none,
