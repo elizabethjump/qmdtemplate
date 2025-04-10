@@ -1,0 +1,166 @@
+---
+title: Replace this title with the title of your report
+program: "Program or project name here"
+timeframe: "March 2024"
+author: |
+  Author 1 (Name, degree and position), Author 2 (Name, degree and position), etc. Also include contact information here
+format:
+  typst_pdf-typst: default
+execute:
+  echo: false
+  eval: true
+  output: true
+  warning: false
+---
+
+## Background
+
+This is a template you can use to create PDF reports that are formatted according to our OEE style guide. This is a Quarto document which is the newer version of R Markdown. See [here](https://www.markdownguide.org/basic-syntax/) for more information about markdown syntax and [here](https://rstudio.github.io/cheatsheets/quarto.pdf) for more information about Quarto. 
+
+Charts and tables in this example are made with data from the [`palmerpenguins`](https://allisonhorst.github.io/palmerpenguins/) data set. 
+
+```{r, setup}
+# load packages and data in the setup chunk
+
+library(tidyverse)
+library(smcepi)
+library(palmerpenguins)
+
+penguins <- palmerpenguins::penguins
+
+species <- penguins %>%
+  distinct(species) %>%
+  pull(species)
+  
+```
+
+## A note about style
+
+When writing your reports, please follow these guidelines:
+
+* Headers and titles should be in sentence case, meaning only the first letter of the first word and proper nouns (like San Mateo County) should be capitalized.  
+* When listing out items, please use the oxford comma, ex: yellow, red, and blue instead of yellow, red and blue.   
+
+## Tables
+
+For PDF reports, you should create your using the [flextable package](https://www.rdocumentation.org/packages/flextable/versions/0.9.5) and you should use the `theme_ft_smc()` function from the `smcepi` package to format your `flextable` charts. More information about the `smcepi` package is [here](https://san-mateo-county-health-epidemiology.github.io/smcepi/). 
+
+```{r}
+library(flextable)
+
+penguins_table <- penguins  %>%
+  filter(!is.na(body_mass_g)) %>%
+  group_by(species) %>%
+  summarize(as_tibble_row(quantile(body_mass_g)),
+            mean = mean(body_mass_g, na.rm = T),
+            std = sd(body_mass_g, na.rm = T)) %>%
+  rename(Min = `0%`,
+         `First Quartile` = `25%`,
+         Median = `50%`,
+         `Third Quartile` = `75%`,
+         Max = `100%`,
+         Mean = mean,
+         `Standard deviation` = std,
+         Species = species) %>%
+  select(Species, Mean, `Standard deviation`, everything()) %>%
+  flextable() %>%
+  theme_ft_smc()
+```
+
+
+### table title here: 
+```{r}
+penguins_table
+```
+
+## Charts
+
+For PDF reports, you should create your charts in `ggplot2` and you should use the `theme_gg_smc()` function from the `smcepi` package to format your `ggplot2` charts. More information about the `smcepi` package is [here](https://san-mateo-county-health-epidemiology.github.io/smcepi/). 
+
+With Typst, you'll have more control over your plots if you save them first as a .png and then load the .png into your report. You should use the `width =` and `height =` arguments in the `ggsave()` function to adjust the font to plot ratio in your chart. If you want the plot to be 1.5 times as wide as it is tall, you can save the plot as a 3x2, a 6x4 or 9x6. In a 3x2 the title, subtitle, caption and axis fonts will be march larger in relation to the plot than they will be in a 9x6. 
+
+You can use the `fig-width` argument when you call the plot to determine how big you actually want the plot to be. 
+
+In the code below, we save the plot as a 9x4 but then load it with a width of 6.5 inches. 
+
+```{r}
+plot_jitter <- penguins %>% 
+  ggplot(aes(x = species, 
+             y = flipper_length_mm)) +
+  geom_point(
+    position = position_jitter(w = 1/4, h = 0),
+    size = 4, 
+    color = "#006cb6", 
+    alpha = 0.4
+  ) +
+  theme_gg_smc() + 
+  labs(title = "Distribution of flipper length by penguin species",
+       x = "",
+       y = "Flipper length in millimeters")
+
+ggsave(filename = "plot_jitter.png",
+       plot = plot_jitter,
+       width = 9,
+       height = 4,
+       units = "in")
+
+```
+
+![](plot_jitter.png){fig-align="center" width=6.5in}
+
+Narrative text can appear anywhere in your document. You can reference data points from data loaded prior to the narrative text using tick marks wrapped around an r chunk: \` `r` `<code goes here>` \`. For example: In this data set there are `r length(species)` species: `r species[1]`, `r species[2]` and `r species[3]`.
+
+
+## Advanced formatting
+
+You might want to put two charts or a chart and a table side by side. Right now, you can't dynamically specify where columns should appear ([see known limitations](https://quarto.org/docs/output-formats/typst.html#known-limitations)), but you can kind of get around this with tables and charts by saving them as images and then calling the images into the report like we did above.
+
+```{r}
+#| output: false
+## plot 
+ggsave(filename = "plot_jitter_narrow.png",
+       plot = plot_jitter,
+       width = 7,
+       height = 6,
+       units = "in")
+
+## table 
+penguins_table_narrow <- penguins  %>%
+  filter(!is.na(flipper_length_mm)) %>%
+  group_by(species) %>%
+  summarize(as_tibble_row(quantile(flipper_length_mm)),
+            mean = round(mean(flipper_length_mm, na.rm = T), 1),
+            std = sd(flipper_length_mm, na.rm = T)) %>%
+  rename(Min = `0%`,
+         `First Quartile` = `25%`,
+         Median = `50%`,
+         `Third Quartile` = `75%`,
+         Max = `100%`,
+         Mean = mean,
+         `Standard deviation` = std,
+         Species = species) %>%
+  select(Species, Min, `First Quartile`, Median, `Third Quartile`, Max, Mean, `Standard deviation`) %>%
+  pivot_longer(names_to = "var",
+               values_to = "estimate",
+               cols = -c(Species)) %>%
+  pivot_wider(names_from = Species,
+              values_from = estimate) %>%
+  rename("Measure" = 1) %>%
+  mutate(across(where(is.numeric), ~ round(.x, 1))) %>%
+  flextable() %>%
+  theme_ft_smc()
+
+save_as_image(x = penguins_table_narrow,
+              path = "table_narrow.png")
+
+```
+::: {layout-ncol=2}
+
+![](table_narrow.png){fig-align="right" width=3.5in}
+
+![](plot_jitter_narrow.png){fig-align="left" width=3.5in}
+
+:::
+
+
+##### If you have technical notes you want to include. Those should be denoted with 5 `#`'s ahead of them.
