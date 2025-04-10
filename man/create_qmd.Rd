@@ -4,7 +4,7 @@
 \alias{create_qmd}
 \title{Using \code{create_qmd}}
 \usage{
-create_oee_qmd(file_name = NULL,
+create_qmd(file_name = NULL,
                  ext_type = "typst_pdf")
 }
 \arguments{
@@ -23,7 +23,7 @@ Use this function to create a pre-formatted Quarto doc that renders to PDF with 
 }
 \examples{
 \dontrun{
-create_oee_qmd(file_name = "new_report",
-               ext_type = "short_report_pdf")
+create_qmd(file_name = "new_report",
+               ext_type = "typst_pdf")
 }
 }
