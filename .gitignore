@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+
+*.pdf
+*./typst_pdf/*.png
