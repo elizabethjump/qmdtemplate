@@ -15,7 +15,7 @@ execute:
 
 ## Background
 
-This is a template you can use to create PDF reports that are formatted according to our OEE style guide. This is a Quarto document which is the newer version of R Markdown. See [here](https://www.markdownguide.org/basic-syntax/) for more information about markdown syntax and [here](https://rstudio.github.io/cheatsheets/quarto.pdf) for more information about Quarto. 
+This is a template you can use to create PDF reports with custom formatting. This is a Quarto document. Quarto is a new, language-agnostic version of R Markdown. See [here](https://www.markdownguide.org/basic-syntax/) for more information about markdown syntax and [here](https://rstudio.github.io/cheatsheets/quarto.pdf) for more information about Quarto. 
 
 Charts and tables in this example are made with data from the [`palmerpenguins`](https://allisonhorst.github.io/palmerpenguins/) data set. 
 
@@ -23,7 +23,6 @@ Charts and tables in this example are made with data from the [`palmerpenguins`]
 # load packages and data in the setup chunk
 
 library(tidyverse)
-library(smcepi)
 library(palmerpenguins)
 
 penguins <- palmerpenguins::penguins
@@ -43,7 +42,7 @@ When writing your reports, please follow these guidelines:
 
 ## Tables
 
-For PDF reports, you should create your using the [flextable package](https://www.rdocumentation.org/packages/flextable/versions/0.9.5) and you should use the `theme_ft_smc()` function from the `smcepi` package to format your `flextable` charts. More information about the `smcepi` package is [here](https://san-mateo-county-health-epidemiology.github.io/smcepi/). 
+For PDF reports, you should create your using the [flextable package](https://www.rdocumentation.org/packages/flextable/versions/0.9.5). If you want to create a custom flextable theme, you can copy the one we have (`theme_ft_smc()`) in the `smcepi` package [here](https://san-mateo-county-health-epidemiology.github.io/smcepi/). 
 
 ```{r}
 library(flextable)
@@ -63,8 +62,7 @@ penguins_table <- penguins  %>%
          `Standard deviation` = std,
          Species = species) %>%
   select(Species, Mean, `Standard deviation`, everything()) %>%
-  flextable() %>%
-  theme_ft_smc()
+  flextable()
 ```
 
 
@@ -75,7 +73,7 @@ penguins_table
 
 ## Charts
 
-For PDF reports, you should create your charts in `ggplot2` and you should use the `theme_gg_smc()` function from the `smcepi` package to format your `ggplot2` charts. More information about the `smcepi` package is [here](https://san-mateo-county-health-epidemiology.github.io/smcepi/). 
+For PDF reports, you should create your charts in `ggplot2`. You can also create a custom ggplot2 theme like ours (`theme_gg_smc()`) in the `smcepi` package [here](https://san-mateo-county-health-epidemiology.github.io/smcepi/). 
 
 With Typst, you'll have more control over your plots if you save them first as a .png and then load the .png into your report. You should use the `width =` and `height =` arguments in the `ggsave()` function to adjust the font to plot ratio in your chart. If you want the plot to be 1.5 times as wide as it is tall, you can save the plot as a 3x2, a 6x4 or 9x6. In a 3x2 the title, subtitle, caption and axis fonts will be march larger in relation to the plot than they will be in a 9x6. 
 
@@ -93,7 +91,7 @@ plot_jitter <- penguins %>%
     color = "#006cb6", 
     alpha = 0.4
   ) +
-  theme_gg_smc() + 
+  theme_minimal() + 
   labs(title = "Distribution of flipper length by penguin species",
        x = "",
        y = "Flipper length in millimeters")
@@ -147,8 +145,7 @@ penguins_table_narrow <- penguins  %>%
               values_from = estimate) %>%
   rename("Measure" = 1) %>%
   mutate(across(where(is.numeric), ~ round(.x, 1))) %>%
-  flextable() %>%
-  theme_ft_smc()
+  flextable() 
 
 save_as_image(x = penguins_table_narrow,
               path = "table_narrow.png")
