@@ -4,4 +4,4 @@
 .Ruserdata
 
 *.pdf
-*./typst_pdf/*.png
+inst/extdata/typst_pdf/*.png
