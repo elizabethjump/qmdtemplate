@@ -28,7 +28,6 @@ You should also make sure you have an up to date version of Quarto (the program,
 ## Overview
 
 This R package has one function: `create_qmd()`. This function will create a new Quarto document that has been pre-formatted using Typst. 
-
 Usage:
 
 ```{r}
@@ -40,6 +39,10 @@ create_qmd(file_name = "Quarterly",
            ext_type = "typst_pdf")
 
 ```
+
+You can watch this video to see the expected behavior:
+
+![](images/function-demo.mp4)
 
 If you'd like to create your own package that does something similar, you can copy the R code and folder structure from this package. The example included here is for a Quarto doc formatted with Typst but you can adjust that as desired. If you've never built an R package before, I suggest you follow the instructions in the [R Packages (2e)](https://r-pkgs.org/) book.  
 

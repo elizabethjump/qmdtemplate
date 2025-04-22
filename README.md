@@ -23,7 +23,6 @@ program, not the package) installed. Download that
 
 This R package has one function: `create_qmd()`. This function will
 create a new Quarto document that has been pre-formatted using Typst.
-
 Usage:
 
 ``` r
@@ -32,6 +31,10 @@ library(qmdtemplate)
 create_qmd(file_name = "Quarterly",
            ext_type = "typst_pdf")
 ```
+
+You can watch this video to see the expected behavior:
+
+![](images/function-demo.mp4)
 
 If you’d like to create your own package that does something similar,
 you can copy the R code and folder structure from this package. The
