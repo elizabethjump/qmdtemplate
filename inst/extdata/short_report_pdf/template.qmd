@@ -2,8 +2,8 @@
 title: Replace this with the title of your report
 program: "Program or project name here"
 timeframe: "May 2026"
-author: |
-  Author 1 (Name, degree and position), Author 2 (Name, degree and position), etc. Also include contact information here
+department: "Department name"
+author: "Author 1 (Name, degree and position), Author 2 (Name, degree and position), etc. Also include contact information here"
 format:
   short_report_pdf-typst: default
 execute:

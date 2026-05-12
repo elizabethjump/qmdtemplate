@@ -6,7 +6,7 @@
   author: none,
   timeframe: none,
   program: none,
-  department: "Department name",
+  department: none,
   cols: 1,
   margin: (x: 0.5in,
            top: 1.25in,
