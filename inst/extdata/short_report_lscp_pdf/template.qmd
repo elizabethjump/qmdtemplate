@@ -6,7 +6,7 @@ department: "Department name"
 author: |
   Author 1 (Name, degree and position), Author 2 (Name, degree and position), etc. Also include contact information here
 format:
-  short_report_ldscp_pdf-typst: default
+  short_report_lscp_pdf-typst: default
 execute:
   echo: false
   eval: true
