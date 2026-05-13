@@ -20,7 +20,7 @@ $if(subtitle)$
   subtitle: [$subtitle$],
 $endif$
 $if(department)$
-  subtitle: [$department$],
+  department: [$department$],
 $endif$
 $if(author)$
   author: [$author$],

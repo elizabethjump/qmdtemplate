@@ -191,8 +191,8 @@
   // main image -----
   place(top + left,
         dx: -0.5in,
-        dy: 2.5in,
-        image("images/placeholder-title-image.jpg",
+        dy: 2.51in,
+        image("images/placeholder-title-image.png",
               width: 8.5in))
 
   // bottom border of image ----

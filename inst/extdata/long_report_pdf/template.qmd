@@ -1,6 +1,7 @@
 ---
 title: Replace this with the title of your report
 subtitle: Subtitle with additional info. this can be really long and the text will wrap
+department: Department name
 author: author 1 name and degrees, author 2 name and degrees, author 3 name and degrees, etc
 program: Program or project name here
 timeframe: March 2024
