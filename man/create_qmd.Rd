@@ -5,14 +5,17 @@
 \title{Using \code{create_qmd}}
 \usage{
 create_qmd(file_name = NULL,
-                 ext_type = "typst_pdf")
+           ext_type = "short_report_pdf")
 }
 \arguments{
 \item{file_name}{A string that will become the name of the Quarto report}
 
 \item{ext_type}{Specify what type of report you want to make. Options include:
 \itemize{
-\item \code{typst_pdf}: creates a Quarto doc that uses Typst to render to PDF
+\item \code{short_report_pdf}: creates a Quarto doc that renders to a short, portrait, PDF report
+\item \code{short_report_lscp_pdf}: creates a Quarto doc that renders to a short, landscape, PDF report
+\item \code{long_report_pdf}: creates a Quarto doc that renders to a long, portrait, PDF report
+\item \code{long_report_lscp_pdf}: creates a Quarto doc that renders to a long, landscape, PDF report
 }}
 }
 \value{
@@ -24,6 +27,6 @@ Use this function to create a pre-formatted Quarto doc that renders to PDF with 
 \examples{
 \dontrun{
 create_qmd(file_name = "new_report",
-               ext_type = "typst_pdf")
+           ext_type = "short_report_pdf")
 }
 }

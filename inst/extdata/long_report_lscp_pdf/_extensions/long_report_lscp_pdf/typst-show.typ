@@ -12,18 +12,22 @@
 //   - https://typst.app/docs/tutorial/making-a-template/
 //   - https://github.com/typst/templates
 
-#show: doc => pdf(
+#show: doc => oee-pdf(
 $if(title)$
   title: [$title$],
+$endif$
+$if(subtitle)$
+  subtitle: [$subtitle$],
 $endif$
 $if(program)$
   program: [$program$],
 $endif$
-
 $if(author)$
   author: [$author$],
 $endif$
-
+$if(department)$
+  department: [$department$],
+$endif$
 
 $if(timeframe)$
   timeframe: [$timeframe$],
@@ -46,6 +50,16 @@ $endif$
 $if(section-numbering)$
   sectionnumbering: "$section-numbering$",
 $endif$
+$if(toc)$
+  toc: $toc$,
+$endif$
+$if(toc-title)$
+  toc_title: [$toc-title$],
+$endif$
+$if(toc-indent)$
+  toc_indent: $toc-indent$,
+$endif$
+  toc_depth: $toc-depth$,
   cols: $if(columns)$$columns$$else$1$endif$,
   doc,
 )

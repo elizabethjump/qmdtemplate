@@ -1,15 +1,15 @@
 
-// This is an example typst template
+// This is the short report portait typst template
 
 #let pdf(
   title: none,
   author: none,
   timeframe: none,
   program: none,
+  department: none,
   cols: 1,
-  department: "Department name",
   margin: (x: 0.5in,
-           top: 1.15in,
+           top: 1.25in,
            bottom: 1in),
   paper: "us-letter",
   font: "Arial",
@@ -33,7 +33,7 @@
                        dx: 0.3in,
                        dy: 0.3in,
                        image("images/example-logo.png",
-                            width: 1.8in))
+                            width: 2in))
 
                 // program + timeframe
                 #place(top + left,
@@ -60,17 +60,17 @@
 
                 // title
                 #place(top + right,
-                       dx: 0.3in,
-                       dy: 0.3in,
-                       block(width: 5in,
-                            height: 0.25in,
-                            inset: 0.1in)[
+                       dx: 0.25in,
+                       dy: 0.1in,
+                       block(width: 3.75in,
+                             height: 0.9in,
+                             inset: 0.1in)[
                          #text(size: 16pt,
                                fill: rgb("000000"),
                                font: title_font,
                                top-edge: "cap-height",
-                               bottom-edge: "descender",
-                               align(right, title))])
+                               bottom-edge: "baseline",
+                               align(right + horizon, title))])
 
                 #place(top + left,
                       dx: -0.1in,
@@ -102,7 +102,7 @@
                        width: 8.5in,
                        height: 0.5in))
 
-              // add OEE name ----
+              // add department name ----
               #place(bottom + left,
                       dx: -0.4in,
                       dy: -0.05in,
@@ -134,7 +134,7 @@
 
                    #place(center + top,
                           dx: 0in,
-                          dy: 0.95in,
+                          dy: 1.05in,
                           rect(width: 8.5in,
                                height: 0.1in,
                                fill: rgb("38939b")))
@@ -146,7 +146,7 @@
   // set rectangles for the page ----
    place(center + top,
       dx: 0in,
-      dy: -0.1in,
+      dy: -0.2in,
       clearance: 10pt,
       block(width: 8.5in,
           height: 0.5in,
@@ -181,13 +181,14 @@
                                         top-edge: "ascender",
                                         bottom-edge: "descender")
 
-  // level 3 ----
+  // level 3 (same as level 2 but centered) ----
   show heading.where(level:2): set text(weight: "bold",
-                                        size: 13pt,
+                                        size: 14pt,
                                         fill: rgb("000000"),
                                         font: font,
                                         top-edge: "ascender",
                                         bottom-edge: "descender")
+  show heading.where(level:2): set align(center)
 
   // level 3 ----
   show heading.where(level:4): set text(size: 9pt,
