@@ -4,11 +4,14 @@
 #' Use this function to create a pre-formatted Quarto doc that renders to PDF with Typst.
 #'
 #' @usage create_qmd(file_name = NULL,
-#'                  ext_type = "typst_pdf")
+#'            ext_type = "short_report_pdf")
 #'
 #' @param file_name A string that will become the name of the Quarto report
 #' @param ext_type Specify what type of report you want to make. Options include:
-#'   * `typst_pdf`: creates a Quarto doc that uses Typst to render to PDF
+#'   * `short_report_pdf`: creates a Quarto doc that renders to a short, portrait, PDF report
+#'   * `short_report_lscp_pdf`: creates a Quarto doc that renders to a short, landscape, PDF report
+#'   * `long_report_pdf`: creates a Quarto doc that renders to a long, portrait, PDF report
+#'   * `long_report_lscp_pdf`: creates a Quarto doc that renders to a long, landscape, PDF report
 #'
 #' @returns This creates and opens a new Quarto doc with the name specified in `file_name`.
 #' @export
@@ -17,17 +20,17 @@
 #' @examples
 #' \dontrun{
 #' create_qmd(file_name = "new_report",
-#'                ext_type = "typst_pdf")
+#'            ext_type = "short_report_pdf")
 #' }
 create_qmd <- function(file_name = NULL,
-                           ext_type = "typst_pdf") {
+                       ext_type = "short_report_pdf") {
 
   if (is.null(file_name)) {
     stop("You must provide a valid file_name")
   }
 
   # make sure ext_type matches available options ----
-  sort_method <- rlang::arg_match(ext_type, c("typst_pdf"))
+  sort_method <- rlang::arg_match(ext_type, c("short_report_pdf", "short_report_lscp_pdf", "long_report_pdf", "long_report_lscp_pdf"))
 
   # create directory for quarto report and _extensions ----
   report_dir <- paste0(file_name, "_report/")
