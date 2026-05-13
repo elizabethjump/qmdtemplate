@@ -6,7 +6,7 @@ timeframe: March 2024
 department: Department name
 author: Author 1 (Name, degree and position), Author 2 (Name, degree and position), Author 3 (Name, degree and position), etc
 format:
-  long_report_ldscp_pdf-typst: default
+  long_report_lscp_pdf-typst: default
 toc: true
 execute:
   echo: false
