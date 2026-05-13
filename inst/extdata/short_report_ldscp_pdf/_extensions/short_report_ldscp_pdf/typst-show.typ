@@ -22,6 +22,9 @@ $endif$
 $if(author)$
   author: [$author$],
 $endif$
+$if(department)$
+  department: [$department$],
+$endif$
 $if(timeframe)$
   timeframe: [$timeframe$],
 $endif$
